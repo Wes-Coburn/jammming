@@ -1,0 +1,8 @@
+.Playlist-div input {
+  color: white;
+  text-align: center;
+}
+
+.Playlist-div > div {
+  margin: 10px;
+}

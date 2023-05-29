@@ -1,4 +1,17 @@
-Button {
-  text-transform: none !important;
+.Track-div {
+  text-align: start;
+  display: flex;
 }
 
+.Track-div p {
+  text-align: left;
+  max-width: 85%;
+  margin-left: 10px;
+}
+
+.Track-div Button {
+  font-size: x-large;
+  align-self: center;
+  margin-left: auto;
+  margin-right: 10px;
+}

@@ -1,0 +1,10 @@
+.SearchBar-div {
+  padding: 15px;
+  background-color: peachpuff;
+}
+
+.SearchBar-div Button {
+  display: inline-block;
+  margin-left: 5px;
+  top: 8px;
+}
