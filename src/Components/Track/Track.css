@@ -1,6 +1,8 @@
 .Track-div {
   text-align: start;
   display: flex;
+  border: 1px solid slateblue;
+  margin: 10px;
 }
 
 .Track-div p {

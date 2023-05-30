@@ -1,9 +1,12 @@
+import { AdUnits } from "@mui/icons-material";
+
 const redirectUri = "http://localhost:3000";
 const baseUrl = "https://api.spotify.com/v1";
 const searchUrl = "/search?type=track";
 
 // Authorization
 let accessToken = "";
+let userId = "";
 const scope = "playlist-modify-public";
 const clientId = "776ff261ab1d4cc28f40744d6c7f9064";
 //const clientSecret = "833f8c585dd44d6a98d3ba4df55d6fc1";
@@ -15,11 +18,7 @@ authorizeUrl += "&scope=" + encodeURIComponent(scope);
 authorizeUrl += "&redirect_uri=" + encodeURIComponent(redirectUri);
 
 const Spotify = {
-  getAuthHeaders() {
-    if (!accessToken) {
-      throw new ReferenceError("Access Token is NULL");
-    }
-
+  headerGET() {
     return {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -27,10 +26,19 @@ const Spotify = {
     };
   },
 
+  headerPOST(jsonRequest) {
+    return {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify(jsonRequest),
+    };
+  },
+
   getAccessToken() {
     if (accessToken) {
       return;
-      //return accessToken;
     }
 
     try {
@@ -64,6 +72,28 @@ const Spotify = {
     }
   },
 
+  async getUserId() {
+    if (userId) {
+      console.log("user_id found >>>", userId);
+      return;
+    }
+
+    try {
+      let idUrl = baseUrl;
+      idUrl += "/me";
+      const response = await fetch(idUrl, this.headerGET());
+      const jsonResponse = await response.json();
+
+      if (!jsonResponse.id) {
+        throw new Error("user_id not found!");
+      }
+
+      userId = jsonResponse.id;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
   async search(term) {
     try {
       let queryUrl = baseUrl;
@@ -73,15 +103,16 @@ const Spotify = {
       console.log(`queryUrl:`, queryUrl);
 
       this.getAccessToken();
-      const response = await fetch(queryUrl, this.getAuthHeaders());
+      const response = await fetch(queryUrl, this.headerGET());
 
       const jsonResponse = await response.json();
       console.log("jsonResponse:", jsonResponse);
 
       if (!jsonResponse.tracks.items.length) {
-        throw new Error('No results found!');
+        throw new Error("No results found!");
       }
-      const tracks = jsonResponse.tracks.items.map(item => {
+
+      const tracks = jsonResponse.tracks.items.map((item) => {
         return {
           id: item.id,
           name: item.name,
@@ -91,10 +122,52 @@ const Spotify = {
         };
       });
 
-      console.log('formatted tracks:', tracks);
       return tracks;
     } catch (error) {
       console.log(error);
+    }
+  },
+
+  async CreatePlaylist(playlistName, trackUris) {
+    if (!playlistName || !trackUris.length) {
+      return;
+    }
+
+    this.getAccessToken();
+    await this.getUserId();
+
+    let createUrl = baseUrl;
+    createUrl += "/users";
+    createUrl += "/" + encodeURIComponent(userId);
+    createUrl += "/playlists";
+
+    // Create the playlist
+    const createRequest = {
+      name: playlistName,
+    };
+    const createResponse = await fetch(
+      createUrl,
+      this.headerPOST(createRequest)
+    );
+    const jsonCreateResponse = await createResponse.json();
+    console.log("jsonCreateResponse >>>", jsonCreateResponse);
+
+    // Add the tracks to the playlist
+    const playlistId = jsonCreateResponse.id;
+
+    let addUrl = baseUrl;
+    addUrl += "/playlists";
+    addUrl += "/" + encodeURIComponent(playlistId);
+    addUrl += "/tracks";
+
+    const addRequest = {
+      uris: [...trackUris],
+    };
+
+    const addResponse = await fetch(addUrl, this.headerPOST(addRequest));
+
+    if (addResponse.ok) {
+      alert(`${playlistName} saved!`);
     }
   },
 };

@@ -24,19 +24,27 @@ function App() {
     const term = document.getElementById("search-bar").value;
 
     if (term) {
-      console.log('Search term:', term);
-      
-      Spotify.search(term).then(results => {
-        console.log('resolved promise', results);
-        document.getElementById('search-term').innerHTML = `Search Results for "${term}"`;
-        setSearchResults(results);
+      console.log("Search term:", term);
+      Spotify.search(term).then((results) => {
+        let resultsMessage = "";
+        if (results) {
+          resultsMessage = "Search results for";
+          setSearchResults(results);
+        } else {
+          resultsMessage = "No results found for";
+          setSearchResults([]);
+        }
+
+        document.getElementById(
+          "search-term"
+        ).innerHTML = `${resultsMessage} "${term}"`;
       });
     }
   };
 
   const updatePlaylistName = (name) => {
     setPlaylistName(name);
-    document.getElementById('playlist-name').value = name;
+    document.getElementById("playlist-name").value = name;
   };
 
   const addTrack = (track) => {
@@ -53,8 +61,10 @@ function App() {
   };
 
   const saveToSpotify = () => {
-    //const trackUris = playlistTracks.map(track => track.uri);
-    // API >>> save to spotify
+    const trackUris = playlistTracks.map(track => track.uri);
+    // Create playlist and add tracks
+    Spotify.CreatePlaylist(playlistName, trackUris);
+    // Reset playlist info
     updatePlaylistName("New Playlist");
     setPlaylistTracks([]);
   };
@@ -67,7 +77,7 @@ function App() {
         <h1>Jammming</h1>
         <img src={logo} className="App-logo" alt="logo" />
       </header>
-      
+
       <SearchBar onSearch={search} />
 
       <main className="App-main">
