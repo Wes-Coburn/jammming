@@ -1,5 +1,3 @@
-import { AdUnits } from "@mui/icons-material";
-
 const redirectUri = "http://localhost:3000";
 const baseUrl = "https://api.spotify.com/v1";
 const searchUrl = "/search?type=track";

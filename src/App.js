@@ -15,10 +15,21 @@ import SearchResults from "./components/SearchResults/SearchResults";
 import Spotify from "./util/Spotify";
 
 function App() {
-  // use state for playlist here
   const [searchResults, setSearchResults] = useState([]); //{tracksMock}
   const [playlistName, setPlaylistName] = useState("New Playlist");
   const [playlistTracks, setPlaylistTracks] = useState([]);
+
+  const sortTracks = (tracks) => {
+    return tracks.sort((a, b) => {
+      if (a.name < b.name) {
+        return -1;
+      }
+      if (a.name > b.name) {
+        return 1;
+      }
+      return 0;
+    });
+  };
 
   const search = () => {
     const term = document.getElementById("search-bar").value;
@@ -29,7 +40,7 @@ function App() {
         let resultsMessage = "";
         if (results) {
           resultsMessage = "Search results for";
-          setSearchResults(results);
+          setSearchResults(sortTracks(results));
         } else {
           resultsMessage = "No results found for";
           setSearchResults([]);
@@ -52,20 +63,27 @@ function App() {
       return;
     }
     setPlaylistTracks((previousTracks) => [...previousTracks, track]);
+    setSearchResults(
+      searchResults.filter(
+        (searchResultTrack) => searchResultTrack.id !== track.id
+      )
+    );
   };
 
   const removeTrack = (track) => {
     setPlaylistTracks(
       playlistTracks.filter((playlistTrack) => playlistTrack.id !== track.id)
     );
+    const newTracks = sortTracks([...searchResults, track]);
+    setSearchResults(newTracks);
   };
 
   const saveToSpotify = () => {
-    const trackUris = playlistTracks.map(track => track.uri);
+    const trackUris = playlistTracks.map((track) => track.uri);
     // Create playlist and add tracks
     Spotify.CreatePlaylist(playlistName, trackUris);
     // Reset playlist info
-    updatePlaylistName("New Playlist");
+    updatePlaylistName("");
     setPlaylistTracks([]);
   };
 
