@@ -1,0 +1,19 @@
+.Track-div {
+  text-align: start;
+  display: flex;
+  border: 1px solid slateblue;
+  margin: 10px;
+}
+
+.Track-div p {
+  text-align: left;
+  max-width: 85%;
+  margin-left: 10px;
+}
+
+.Track-div Button {
+  font-size: x-large;
+  align-self: center;
+  margin-left: auto;
+  margin-right: 10px;
+}
