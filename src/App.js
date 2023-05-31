@@ -18,8 +18,13 @@ function App() {
   const [searchResults, setSearchResults] = useState([]); //{tracksMock}
   const [playlistName, setPlaylistName] = useState("New Playlist");
   const [playlistTracks, setPlaylistTracks] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const sortTracks = (tracks) => {
+    if (!tracks) {
+      return [];
+    }
+    
     return tracks.sort((a, b) => {
       if (a.name < b.name) {
         return -1;
@@ -31,24 +36,12 @@ function App() {
     });
   };
 
-  const search = () => {
-    const term = document.getElementById("search-bar").value;
-
+  const search = (term) => {
     if (term) {
       console.log("Search term:", term);
       Spotify.search(term).then((results) => {
-        let resultsMessage = "";
-        if (results) {
-          resultsMessage = "Search results for";
-          setSearchResults(sortTracks(results));
-        } else {
-          resultsMessage = "No results found for";
-          setSearchResults([]);
-        }
-
-        document.getElementById(
-          "search-term"
-        ).innerHTML = `${resultsMessage} "${term}"`;
+        setSearchTerm(term);
+        setSearchResults(sortTracks(results));
       });
     }
   };
@@ -99,7 +92,11 @@ function App() {
       <SearchBar onSearch={search} />
 
       <main className="App-main">
-        <SearchResults tracks={searchResults} onAddTrack={addTrack} />
+        <SearchResults
+          tracks={searchResults}
+          onAddTrack={addTrack}
+          searchTerm={searchTerm}
+        />
         <Playlist
           playlistName={playlistName}
           tracks={playlistTracks}

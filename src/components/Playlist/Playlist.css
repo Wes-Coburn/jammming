@@ -1,7 +1,7 @@
-.Playlist-div input {
-  text-align: center;
+.Playlist-div > Button {
+  margin: 10px;
 }
 
-.Playlist-div > div {
-  margin: 10px;
+.Playlist-div input {
+  text-align: center;
 }

@@ -1,6 +1,6 @@
 body {
   min-height: 100vh;
-  background-color: peachpuff;
+  background-color: white;
 }
 
 .App {
@@ -47,11 +47,19 @@ body {
 
 .App-main {
   display: flex;
+  justify-content: center;
   margin-bottom: 10px;
 }
 
 .App-main > div {
   display: inline-block;
   box-sizing: border-box;
-  width: 50%;
+  width: 45%;
+  margin: 0px 20px;
+  background-color: #1db954;
+  border: 3px dotted #191414;
+}
+
+.App-main > div > div {
+  margin: 10px;
 }
