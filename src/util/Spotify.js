@@ -9,12 +9,6 @@ const scope = "playlist-modify-public";
 const clientId = "776ff261ab1d4cc28f40744d6c7f9064";
 //const clientSecret = "833f8c585dd44d6a98d3ba4df55d6fc1";
 
-let authorizeUrl = "https://accounts.spotify.com/authorize";
-authorizeUrl += "?response_type=token";
-authorizeUrl += "&client_id=" + encodeURIComponent(clientId);
-authorizeUrl += "&scope=" + encodeURIComponent(scope);
-authorizeUrl += "&redirect_uri=" + encodeURIComponent(redirectUri);
-
 const Spotify = {
   headerGET() {
     return {
@@ -63,6 +57,26 @@ const Spotify = {
         console.log(response);
         const jsonResponse = response.json();
         */
+
+        /*
+        console.log(
+          "window.location.href",
+          window.location.href,
+          "window.location",
+          window.location,
+          "\n",
+          "redirectUri",
+          redirectUri
+        );
+        */
+
+        let authorizeUrl = "https://accounts.spotify.com/authorize";
+        authorizeUrl += "?response_type=token";
+        authorizeUrl += "&client_id=" + encodeURIComponent(clientId);
+        authorizeUrl += "&scope=" + encodeURIComponent(scope);
+        authorizeUrl +=
+          "&redirect_uri=" + encodeURIComponent(window.location.origin);
+
         window.location.replace(authorizeUrl);
       }
     } catch (error) {
