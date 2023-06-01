@@ -1,5 +1,5 @@
 //const redirectUri = "http://localhost:3000";
-//const redirectUri = "https://6477928416aed400087d80d9--loquacious-mousse-4eb3e0.netlify.app/";
+const redirectUri = "https://6478eacd41ed9200085a167a--wes-coburn-jammmer.netlify.app/";
 const baseUrl = "https://api.spotify.com/v1";
 const searchUrl = "/search?type=track";
 
@@ -56,10 +56,10 @@ const Spotify = {
         authorizeUrl += "&scope=" + encodeURIComponent(scope);
         
         console.log('href', window.location.href);
-        console.log('origin', window.location.origin);
-        
-        const location = window.location.origin;
-        authorizeUrl += "&redirect_uri=" + encodeURIComponent(location);
+        //console.log('origin', window.location.origin);
+
+        //const location = window.location.origin;
+        authorizeUrl += "&redirect_uri=" + encodeURIComponent(redirectUri);
         window.location.replace(authorizeUrl);
       }
     } catch (error) {
