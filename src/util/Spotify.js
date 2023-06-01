@@ -58,9 +58,9 @@ const Spotify = {
         //const location = window.location.href;
         authorizeUrl += "&redirect_uri=" + redirectUri;
 
-        console.log('href', window.location.href);
-        console.log('authUrl', authorizeUrl);
-        //window.location.replace(authorizeUrl);
+        //console.log('href', window.location.href);
+        //console.log('authUrl', authorizeUrl);
+        window.location.replace(authorizeUrl);
       }
     } catch (error) {
       console.log(error);
