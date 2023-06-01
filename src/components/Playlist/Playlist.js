@@ -4,8 +4,8 @@ import Tracklist from "../Tracklist/Tracklist";
 import "./Playlist.css";
 
 function Playlist(props) {
-  function handleChange(event) {
-    props.onChange(event.target.value);
+  function onChangeHandler(event) {
+    props.onSetPlaylistName(event.target.value);
   }
   
   return (
@@ -14,8 +14,9 @@ function Playlist(props) {
         id="playlist-name"
         label="Playlist Name"
         variant="outlined"
+        onChange={onChangeHandler}
+        value={props.playlistName} // <<< This was missing to make the state hook work
         //placeholder={props.playlistName}
-        onChange={handleChange}
       />
 
       <Tracklist

@@ -16,7 +16,7 @@ import Spotify from "./util/Spotify";
 
 function App() {
   const [searchResults, setSearchResults] = useState([]); //{tracksMock}
-  const [playlistName, setPlaylistName] = useState("New Playlist");
+  const [playlistName, setPlaylistName] = useState("");
   const [playlistTracks, setPlaylistTracks] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -24,7 +24,7 @@ function App() {
     if (!tracks) {
       return [];
     }
-    
+
     return tracks.sort((a, b) => {
       if (a.name < b.name) {
         return -1;
@@ -44,11 +44,6 @@ function App() {
         setSearchResults(sortTracks(results));
       });
     }
-  };
-
-  const updatePlaylistName = (name) => {
-    setPlaylistName(name);
-    document.getElementById("playlist-name").value = name;
   };
 
   const addTrack = (track) => {
@@ -72,11 +67,17 @@ function App() {
   };
 
   const saveToSpotify = () => {
+    if (!playlistName || !playlistTracks.length) {
+      return;
+    }
+
     const trackUris = playlistTracks.map((track) => track.uri);
     // Create playlist and add tracks
     Spotify.CreatePlaylist(playlistName, trackUris);
-    // Reset playlist info
-    updatePlaylistName("");
+    // Reset playlist
+    setPlaylistName("");
+    setSearchResults(sortTracks(searchResults.concat(playlistTracks)));
+    //setSearchResults(sortTracks([...searchResults, ...playlistTracks]));
     setPlaylistTracks([]);
   };
 
@@ -99,9 +100,9 @@ function App() {
         />
         <Playlist
           playlistName={playlistName}
+          onSetPlaylistName={setPlaylistName}
           tracks={playlistTracks}
           onRemoveTrack={removeTrack}
-          onChange={updatePlaylistName}
           onSaveToSpotify={saveToSpotify}
         />
       </main>

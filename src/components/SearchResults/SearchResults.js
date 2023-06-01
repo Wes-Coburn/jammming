@@ -4,8 +4,7 @@ import "./SearchResults.css";
 function SearchResults(props) {
   let resultsMessage = "Search Results";
   if (props.searchTerm) {
-    resultsMessage = props.tracks.length ? 'Search results for' : 'No results for';
-    resultsMessage += ` "${props.searchTerm}"`;
+    resultsMessage = `${props.tracks.length} results for "${props.searchTerm}"`;
   }
 
   return (

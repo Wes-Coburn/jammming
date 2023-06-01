@@ -1,6 +1,6 @@
 body {
   min-height: 100vh;
-  background-color: white;
+  background-color: peachpuff;
 }
 
 .App {
@@ -9,7 +9,7 @@ body {
 }
 
 .App-logo {
-  height: 10vmin;
+  height: 7vmin;
   pointer-events: none;
 }
 
@@ -21,13 +21,17 @@ body {
 
 .App-header {
   background-color: #1db954;
-  min-height: 33vh;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  gap: 20px;
+  font-size: calc(5px + 2vmin);
   color: black;
+}
+
+.App-header > h1 {
+  margin: 12px;
 }
 
 /*
@@ -48,15 +52,17 @@ body {
 .App-main {
   display: flex;
   justify-content: center;
-  margin-bottom: 10px;
+  margin: 10px;
 }
 
 .App-main > div {
   display: inline-block;
   box-sizing: border-box;
   width: 45%;
+  min-height: 30vh;
   margin: 0px 20px;
-  background-color: #1db954;
+  padding: 10px;
+  background-color: white;
   border: 3px dotted #191414;
 }
 
