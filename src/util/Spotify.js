@@ -54,10 +54,12 @@ const Spotify = {
         authorizeUrl += "?response_type=token";
         authorizeUrl += "&client_id=" + encodeURIComponent(clientId);
         authorizeUrl += "&scope=" + encodeURIComponent(scope);
-
-        const location = window.location.href;
-        authorizeUrl += "&redirect_uri=" + encodeURIComponent(location); //encodeURIComponent(window.location.origin);
-
+        
+        console.log('href', window.location.href);
+        console.log('origin', window.location.origin);
+        
+        const location = window.location.origin;
+        authorizeUrl += "&redirect_uri=" + encodeURIComponent(location);
         window.location.replace(authorizeUrl);
       }
     } catch (error) {
