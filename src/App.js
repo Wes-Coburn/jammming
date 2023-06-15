@@ -1,5 +1,5 @@
 //import logo from "./logo.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import logo from "./assets/images/cd_icon.png";
 import "./App.css";
 
@@ -26,13 +26,7 @@ function App() {
     }
 
     return tracks.sort((a, b) => {
-      if (a.name < b.name) {
-        return -1;
-      }
-      if (a.name > b.name) {
-        return 1;
-      }
-      return 0;
+      return a.name === b.name ? 0 : a.name < b.name ? -1 : 1;
     });
   };
 
@@ -82,6 +76,11 @@ function App() {
   };
 
   window.addEventListener("load", Spotify.getAccessToken);
+  /*
+  useEffect(() => {
+    Spotify.getAccessToken();
+  }, []);
+  */
 
   return (
     <div className="App">
