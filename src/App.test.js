@@ -21,6 +21,8 @@ describe("<App />", () => {
     shallow(<App />);
     expect(App.prototype.componentDidMount.mock.calls.length).toBe(1);
   });
+
+  
   it("contains h4", () => {
     const wrapper = mount(<Profile user={user} />);
     const value = wrapper.find("h4").text();

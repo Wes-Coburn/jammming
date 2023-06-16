@@ -1,5 +1,5 @@
 //import logo from "./logo.svg";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import logo from "./assets/images/cd_icon.png";
 import "./App.css";
 
