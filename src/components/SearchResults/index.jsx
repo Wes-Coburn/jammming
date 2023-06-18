@@ -1,4 +1,6 @@
-import Tracklist from "../Tracklist/Tracklist";
+import React from 'react';
+import PropTypes from 'prop-types';
+import Tracklist from "../Tracklist";
 import "./SearchResults.css";
 
 function SearchResults(props) {
@@ -17,6 +19,13 @@ function SearchResults(props) {
       />
     </div>
   );
+}
+
+SearchResults.propTypes = {
+  searchTerm: PropTypes.string.isRequired,
+  tracks: PropTypes.array.isRequired,
+  isRemoval: PropTypes.func.isRequired,
+  onAddTrack: PropTypes.func.isRequired,
 }
 
 export default SearchResults;

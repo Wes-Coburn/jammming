@@ -1,3 +1,5 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import Button from "@mui/material/Button";
 import "./Track.css";
 
@@ -27,6 +29,13 @@ function Track(props) {
       </Button>
     </div>
   );
+}
+
+Track.propTypes = {
+  track: PropTypes.string.isRequired,
+  onAddTrack: PropTypes.func.isRequired,
+  onRemoveTrack: PropTypes.func.isRequired,
+  isRemoval: PropTypes.func.isRequired,
 }
 
 export default Track;

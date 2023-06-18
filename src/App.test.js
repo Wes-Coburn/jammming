@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { shallow } from "enzyme";
@@ -9,9 +10,6 @@ describe("<App />", () => {
     const root = createRoot(div);
     root.render(<App />);
     root.unmount(div);
-    //const div = document.createElement("div");
-    //ReactDOM.render(<App />, div);
-    //ReactDOM.unmountComponentAtNode(div);
   });
 
   it("renders correctly", () => {

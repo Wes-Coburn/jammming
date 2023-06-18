@@ -1,6 +1,8 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Button } from "@mui/material";
 import { TextField } from "@mui/material";
-import Tracklist from "../Tracklist/Tracklist";
+import Tracklist from "../Tracklist";
 import "./Playlist.css";
 
 function Playlist(props) {
@@ -33,6 +35,14 @@ function Playlist(props) {
       </Button>
     </div>
   );
+}
+Playlist.propTypes = {
+  playlistName: PropTypes.string.isRequired,
+  onSetPlaylistName: PropTypes.func.isRequired,
+  tracks: PropTypes.array,
+  onAddTrack: PropTypes.func.isRequired,
+  onRemoveTrack: PropTypes.func.isRequired,
+  onSaveToSpotify: PropTypes.func.isRequired,
 }
 
 export default Playlist;
