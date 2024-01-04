@@ -6,7 +6,7 @@ ___
 ___
 ## Description
 
--> A React app that implements the Spotify API. Allows users to search for songs and add them to new playlists.
+-> Spotify client. A React app that implements the Spotify API.
 
 ## Deployment
 
