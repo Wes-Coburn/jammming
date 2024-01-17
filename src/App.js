@@ -3,6 +3,7 @@ import "./App.css";
 
 /* React-Router */
 import {
+  Navigate,
   Route,
   RouterProvider,
   createBrowserRouter,
@@ -19,7 +20,12 @@ import Root from "./components/Root";
 
 function App() {
   const router = createBrowserRouter(
-    createRoutesFromElements(<Route path="/" element={<Root />}></Route>)
+    createRoutesFromElements(
+      <>
+        <Route path="/" element={<Root />}></Route>
+        <Route path="*" element={<Navigate to="/" replace />}></Route>
+      </>
+    )
   );
 
   return <RouterProvider router={router} />;

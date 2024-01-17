@@ -12,7 +12,7 @@ function SearchBar(props) {
     if (event.code === "Enter") {
       searchHandler();
     }
-  });
+  }, []);
 
   const termChangeHandler = useCallback((event) => {
     setSearchTerm(event.target.value);

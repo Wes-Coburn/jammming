@@ -81,17 +81,17 @@ export default function Root() {
         <SearchBar onSearch={search} />
 
         <main className="App-main">
-          <SearchResults
-            tracks={searchResults}
-            onAddTrack={addTrack}
-            searchTerm={searchTerm}
-          />
           <Playlist
             playlistName={playlistName}
             onSetPlaylistName={setPlaylistName}
             tracks={playlistTracks}
             onRemoveTrack={removeTrack}
             onSaveToSpotify={saveToSpotify}
+          />
+          <SearchResults
+            tracks={searchResults}
+            onAddTrack={addTrack}
+            searchTerm={searchTerm}
           />
         </main>
       </div>

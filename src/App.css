@@ -1,6 +1,6 @@
 body {
   min-height: 100vh;
-  background-color: peachpuff;
+  background-color: rgba(0, 0, 0, 0.368);
 }
 
 .App {
@@ -20,14 +20,14 @@ body {
 }
 
 .App-header {
-  background-color: #1db954;
+  background-color: black;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   gap: 20px;
   font-size: calc(5px + 2vmin);
-  color: black;
+  color: white;
 }
 
 .App-header > h1 {
@@ -53,6 +53,8 @@ body {
   display: flex;
   justify-content: center;
   margin: 10px;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .App-main > div {
@@ -68,4 +70,10 @@ body {
 
 .App-main > div > div {
   margin: 10px;
+}
+
+@media only screen and (max-width: 500px) {
+  .App-main > div {
+    width: 90%;
+  }
 }
